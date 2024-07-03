@@ -58,7 +58,7 @@ public class FrameTest {
        boolean result = frame.makeRoll();
 
        //Assert
-       Assertions.assertEquals(result,false);
+       Assertions.assertFalse(result);
    }
 
    @Test
@@ -84,7 +84,7 @@ public class FrameTest {
        //Act
        boolean result = frame.makeRoll();
        //Assert
-       Assertions.assertEquals(result,true);
+       Assertions.assertTrue(result);
    }
    @Test
     public void Roll_LastFrame_SecondRoll_FirstRollStrick_CheckScore(){
