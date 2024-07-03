@@ -26,9 +26,12 @@ public class Frame {
                 return false;
             }
             return true;
-        } else {
+        } else if (rolls.size() < 2 || (rolls.size() == 2 && this.score >= 10)) {
             return true;
+        }else{
+            return false;
         }
+
 
 
     }

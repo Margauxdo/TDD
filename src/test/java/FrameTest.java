@@ -39,8 +39,11 @@ public class FrameTest {
 
        //Act
        frame.makeRoll();
+       frame.makeRoll();
+       int result = frame.getScore();
+
        //Assert
-       Assertions.assertEquals(8,frame.getScore());
+       Assertions.assertEquals(8,result);
 
    }
 
@@ -83,6 +86,95 @@ public class FrameTest {
        //Assert
        Assertions.assertEquals(result,true);
    }
+   @Test
+    public void Roll_LastFrame_SecondRoll_FirstRollStrick_CheckScore(){
+       //Arrange
+       lastFrame = true;
+       frame = new Frame(generateur,lastFrame);
+       when(generateur.randomPin(anyInt())).thenReturn(10,5);
+
+       //Act
+       frame.makeRoll();
+       frame.makeRoll();
+       int result = frame.getScore();
+
+
+       //Assert
+       Assertions.assertEquals(15, result);
+   }
+   @Test
+    public void Roll_LastFrame_ThirdRoll_FirstRollStrick_ReturnTrue(){
+       //Arrange
+       lastFrame = true;
+       frame = new Frame(generateur,lastFrame);
+       when(generateur.randomPin(anyInt())).thenReturn(10,5);
+
+       //Act
+
+       frame.makeRoll();
+       boolean result = frame.makeRoll();
+
+       //Assert
+       Assertions.assertTrue(result);
+   }
+   @Test
+    public void Roll_LastFrame_ThirdRoll_FirstRollStrick_CheckScore(){
+       //Arrange
+       lastFrame = true;
+       frame = new Frame(generateur,lastFrame);
+       when(generateur.randomPin(anyInt())).thenReturn(10,5,8);
+       //Act
+       frame.makeRoll();
+       frame.makeRoll();
+       frame.makeRoll();
+       int result = frame.getScore();
+       //Assert
+       Assertions.assertEquals(result,23);
+   }
+
+   @Test
+    public void Roll_LastFrame_ThirdRoll_Spare_ReturnTrue(){
+       //Arrange
+       lastFrame = true;
+       frame = new Frame(generateur,lastFrame);
+       when(generateur.randomPin(anyInt())).thenReturn(2,8);
+
+       //Act
+       frame.makeRoll();
+       boolean result = frame.makeRoll();
+
+       //Assert
+       Assertions.assertTrue(result);
+   }
+   @Test
+    public void Roll_LastFrame_ThirdRoll_Spare_CheckScore(){
+       //Arrange
+       lastFrame = true;
+       frame = new Frame(generateur,lastFrame);
+       when(generateur.randomPin(anyInt())).thenReturn(2,2,3);
+       //Act
+       frame.makeRoll();
+       frame.makeRoll();
+       frame.makeRoll();
+       int result = frame.getScore();
+       //Assert
+       Assertions.assertEquals(result,7);
+   }
+   @Test
+    public void Roll_LastFrame_FourthRoll_ReturnFalse(){
+       //Arrange
+       lastFrame = false;
+       frame = new Frame(generateur,lastFrame);
+       when(generateur.randomPin(anyInt())).thenReturn(2,3,4,1);
+       //Act
+       frame.makeRoll();
+       frame.makeRoll();
+       frame.makeRoll();
+       boolean result = frame.makeRoll();
+       //Assert
+       Assertions.assertFalse(result);
+   }
+
 
 
 
